@@ -2,6 +2,8 @@ import React from "react";
 import About from "./components/About /About";
 import Home from "./components/Home/Home";
 import OurEvents from "./components/OurEvents/OurEvents";
+import HostProfile from './components/HostProfile/HostProfile';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,7 +15,8 @@ import {
 export default class App extends React.Component{
 
 state = {
-  events: []
+  events: [],
+  user_events: []
 }
 
 componentDidMount () {
@@ -26,6 +29,15 @@ componentDidMount () {
     console.log(this.state.events)
   }
 
+  componentDidMount () {
+
+    fetch("http://localhost:3000/api/v1/user_events")
+      .then(res => res.json())
+      .then(ueventData => this.setState({
+        user_events: ueventData
+      }))
+      console.log(this.state.user_events)
+    }
 
 
   
@@ -45,6 +57,9 @@ componentDidMount () {
               <li>
                 <Link to="/OurEvents" > Our Events</Link>
               </li>
+              <li>
+                <Link to="/HostProfile" > Host Profile</Link>
+              </li>
             </ul>
           </nav>
 
@@ -54,12 +69,19 @@ componentDidMount () {
             <Route path="/about">
               <About/>
             </Route>
+
             <Route path="/OurEvents">
               <OurEvents events = {this.state.events}/>
             </Route>
+
+            <Route path ="/HostProfile">
+                <HostProfile user_events = {this.state.user_events}/>
+                </Route> 
+
             <Route path="/">
               <Home/>
             </Route>
+
           </Switch>
         </div>
       </Router>

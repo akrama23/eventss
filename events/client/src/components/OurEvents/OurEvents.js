@@ -1,4 +1,4 @@
-import EventCard from './components/EventCard/EventCard'
+import EventCard from '../EventCard/EventCard'
 
 function OurEvents(props) {
     return( 

@@ -5,9 +5,9 @@ export default class EventCard extends Component {
   render() {
     return (
       <div className="card">
-        <h2>{this.props.events.name }</h2>
-        <img src={this.props.events.image } alt={this.props.events.name } className="event-pic" />
-        <p>{this.props.events.content }</p>
+        <h2>{this.props.event.name}</h2>
+        <img src={this.props.event.image } alt={this.props.event.name } className="event-pic" />
+        <p>{this.props.event.content }</p>
         
         
       </div>
