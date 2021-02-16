@@ -1,8 +1,7 @@
 import React from "react";
 import About from "./components/About /About";
 import Home from "./components/Home/Home";
-import Users from "./components/Users/Users";
-import Login from "./components/Login/Login"
+import OurEvents from "./components/OurEvents/OurEvents";
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,6 +11,25 @@ import {
 
 
 export default class App extends React.Component{
+
+state = {
+  events: []
+}
+
+componentDidMount () {
+
+  fetch("http://localhost:3000/api/v1/events")
+    .then(res => res.json())
+    .then(eventData => this.setState({
+      events: eventData
+    }))
+    console.log(this.state.events)
+  }
+
+
+
+  
+
   render(){
     return (
       <Router>
@@ -19,13 +37,13 @@ export default class App extends React.Component{
           <nav>
             <ul>
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/">Home Page</Link>
               </li>
               <li>
-                <Link to="/about">About</Link>
+                <Link to="/about"> About Us</Link>
               </li>
               <li>
-                <Link to="/users">Users</Link>
+                <Link to="/OurEvents" > Our Events</Link>
               </li>
             </ul>
           </nav>
@@ -36,8 +54,8 @@ export default class App extends React.Component{
             <Route path="/about">
               <About/>
             </Route>
-            <Route path="/users">
-              <Users/>
+            <Route path="/OurEvents">
+              <OurEvents events = {this.state.events}/>
             </Route>
             <Route path="/">
               <Home/>
