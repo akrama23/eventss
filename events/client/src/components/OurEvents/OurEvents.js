@@ -1,17 +1,40 @@
-import EventCard from '../EventCard/EventCard'
+import React from "react";
+import EventList from './EventList'
+import Search from "../Search/Search"
 
-function OurEvents(props) {
-    return( 
-    <div id="event-options">
-    {
-    props.events.map((event)=> { 
-    return <EventCard event={event}
-    />
-    })
+export default class OurEvents extends React.Component{
 
+  state = {
+    events: [],
+    search: ''
   }
-  </div>
-    )
+  
+  componentDidMount = () => {
+  
+    fetch("http://localhost:3000/api/v1/events")
+      .then(res => res.json())
+      .then(eventData => this.setState({
+        events: eventData
+      }))
+  }
+
+  theSearch = (search) => {
+    this.setState({search})
+  }
+  
+
+  displayEvent = () => this.state.events.filter(event=> event.name.toLowerCase().includes(this.state.search.toLowerCase()))
+    
+  
+    render(){
+      return( 
+      <div id="event-options">
+        <Search search={this.theSearch} />
+        <EventList events={this.displayEvent()}/>
+        
+      </div>
+      )
+    }
 
 }
 
@@ -19,8 +42,7 @@ function OurEvents(props) {
 
 
 
-  export default OurEvents;
-
+ 
 
   
   

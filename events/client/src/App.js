@@ -14,33 +14,6 @@ import {
 
 export default class App extends React.Component{
 
-state = {
-  events: [],
-  user_events: []
-}
-
-componentDidMount () {
-
-  fetch("http://localhost:3000/api/v1/events")
-    .then(res => res.json())
-    .then(eventData => this.setState({
-      events: eventData
-    }))
-    console.log(this.state.events)
-  }
-
-  componentDidMount () {
-
-    fetch("http://localhost:3000/api/v1/user_events")
-      .then(res => res.json())
-      .then(ueventData => this.setState({
-        user_events: ueventData
-      }))
-      console.log(this.state.user_events)
-    }
-
-
-  
 
   render(){
     return (
@@ -71,11 +44,11 @@ componentDidMount () {
             </Route>
 
             <Route path="/OurEvents">
-              <OurEvents events = {this.state.events}/>
+              <OurEvents />
             </Route>
 
             <Route path ="/HostProfile">
-                <HostProfile user_events = {this.state.user_events}/>
+                <HostProfile />
                 </Route> 
 
             <Route path="/">
